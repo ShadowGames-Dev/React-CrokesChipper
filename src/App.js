@@ -7,14 +7,20 @@ import {
 import ReactDOM from 'react-dom';
 //import logo from './logo.svg';
 import './App.css';
+import Order from './Order.js';
 
 var App = React.createClass({
   render : function() {
     return (
-       <div className="App">
+      <div className="App">
         <div className="App-header">
+       <header id="top" className="header">
+        <div className="text-vertical-center">
           <h1>Crokes Chipper</h1>
+          <br />
         </div>
+      </header>
+      </div>
       </div>
     )
   }
@@ -25,8 +31,13 @@ var About = React.createClass({
     return (
       <div className="App">
         <div className="App-header">
+      <header id="top" className="header">
+        <div className="text-vertical-center">
           <h1>About</h1>
+          <br />
         </div>
+      </header>
+      </div>
       </div>
     );
   } 
@@ -37,20 +48,13 @@ var Contact = React.createClass({
     return (
       <div className="App">
         <div className="App-header">
+      <header id="top" className="header">
+        <div className="text-vertical-center">
           <h1>Contact</h1>
+          <br />
         </div>
+      </header>
       </div>
-    );
-  } 
-  }) ;
-
-var Order = React.createClass({  
-  render: function() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <h1>Order</h1>
-        </div>
       </div>
     );
   } 
