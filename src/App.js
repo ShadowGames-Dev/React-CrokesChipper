@@ -1,60 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  //Link
 } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 //import logo from './logo.svg';
 import './App.css';
-import Order from './Order.js';
+//import Order, {Checkout} from './Order.js';
+import Contact from './Contact.js'
 
-var App = React.createClass({
-  render : function() {
-    return (
-      <div className="App">
-        <div className="App-header">
-       <header id="top" className="header">
-        <div className="text-vertical-center">
-          <h1>Crokes Chipper</h1>
-          <br />
-        </div>
-      </header>
-      </div>
-      </div>
-    )
-  }
-});
+var Order = require('./Order.js').orComp1;
+var Checkout = require('./Order.js').orComp2;
 
-var About = React.createClass({  
+var Info = React.createClass({  
   render: function() {
     return (
       <div className="App">
-        <div className="App-header">
-      <header id="top" className="header">
-        <div className="text-vertical-center">
-          <h1>About</h1>
-          <br />
-        </div>
-      </header>
-      </div>
-      </div>
-    );
-  } 
-  }) ;
-
-var Contact = React.createClass({  
-  render: function() {
-    return (
-      <div className="App">
-        <div className="App-header">
-      <header id="top" className="header">
-        <div className="text-vertical-center">
-          <h1>Contact</h1>
-          <br />
-        </div>
-      </header>
-      </div>
+        
       </div>
     );
   } 
@@ -63,10 +26,10 @@ var Contact = React.createClass({
 ReactDOM.render((
     <Router>
     <div>
-      <Route exact path="/" component={App}/>
-      <Route exact path="/about" component={About}/>
+      <Route exact path="/" component={Order}/>
+      <Route exact path="/checkout" component={Checkout}/>
+      <Route exact path="/info" component={Info}/>
       <Route exact path="/contact" component={Contact}/>
-      <Route exact path="/order" component={Order}/>
     </div>
   </Router>
 ), document.getElementById('root')) ;
