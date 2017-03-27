@@ -43,6 +43,10 @@ var Order = React.createClass({
   } 
   }) ;
 
+var onButtonClick = function(item) {
+  console.log("BUTTON PRESS!!! - " + item);
+}
+
 class ItemList extends Component{
 
   render(){
@@ -56,7 +60,12 @@ class ItemList extends Component{
         <ul className="list-unstyled">
 
           {items.map(function(listValue, _id){
-            return <li key={_id}>{listValue.name} {listValue.category_id}</li>;
+            return (
+            <div key={_id}>
+            <li>{listValue.name} {listValue.category_id}</li>
+            <button onClick={onButtonClick.bind(this, listValue._id)}>Add to Order</button>
+            </div>
+            );
           })}
 
         </ul>
@@ -72,7 +81,12 @@ class SpecialList extends Component{
         <ul className="list-unstyled">
           
           {discounts.map(function(listValue, _id){
-            return <li key={_id}>{listValue.title}</li>;
+            return (
+            <div key={_id}>
+            <li>{listValue.title}</li>
+            <button onClick={onButtonClick.bind(this, listValue._id)}>Add to Order</button>
+            </div>
+            );
           })}
 
         </ul>
