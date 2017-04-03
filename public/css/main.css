@@ -8,6 +8,11 @@
 	margin: 5px;
 }
 
+.MenuItem {
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: capitalize;
+}
 
 /* Footer Style */
 footer a{color:#555}

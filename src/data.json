@@ -1,172 +1,149 @@
 {
 
-	"category": [
-		{
-			"_id": "chips",
-			"orderNumber":1 
-		},
-		{
-			"_id": "sausages",
-			"orderNumber":2
-		},
-		{
-			"_id": "burgers",
-			"orderNumber":3
-		},
-		{
-			"_id": "chicken",
-			"orderNumber":4
-		},
-		{
-			"_id": "fish",
-			"orderNumber":5
-		}
-	],
-
 	"items": [
 		{
 			"_id": 1,
-			"category_id": "chips",
+			"category": "chips",
 			"name": "small",
 			"qty": 1,
 			"price": 2.50
 		},
 		{
 			"_id": 2,
-			"category_id": "chips",
+			"category": "chips",
 			"name": "large",
 			"qty": 1,
 			"price": 3
 		},
 		{
 			"_id": 3,
-			"category_id": "chips",
+			"category": "chips",
 			"name": "family box",
 			"qty": 1,
 			"price": 7
 		},
 		{
 			"_id": 4,
-			"category_id": "sausages",
+			"category": "sausages",
 			"name": "plain",
 			"qty": 1,
 			"price": 0.50
 		},
 		{
 			"_id": 5,
-			"category_id": "sausages",
+			"category": "sausages",
 			"name": "large",
 			"qty": 1,
 			"price": 1
 		},
 		{
 			"_id": 6,
-			"category_id": "sausages",
+			"category": "sausages",
 			"name": "battered",
 			"qty": 1,
 			"price": 1.50
 		},
 		{
 			"_id": 7,
-			"category_id": "burgers",
+			"category": "burgers",
 			"name": "plain",
 			"qty": 1,
 			"price": 2.50
 		},
 		{
 			"_id": 8,
-			"category_id": "burgers",
+			"category": "burgers",
 			"name": "cheese",
 			"qty": 1,
 			"price": 3
 		},
 		{
 			"_id": 9,
-			"category_id": "burgers",
+			"category": "burgers",
 			"name": "double cheese",
 			"qty": 1,
 			"price": 3.50
 		},
 		{
 			"_id": 10,
-			"category_id": "burgers",
+			"category": "burgers",
 			"name": "1/4 pounder",
 			"qty": 1,
 			"price": 4
 		},
 		{
 			"_id": 11,
-			"category_id": "burgers",
+			"category": "burgers",
 			"name": "1/4 pounder with cheese",
 			"qty": 1,
 			"price": 4.50
 		},
 		{
 			"_id": 12,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "pieces",
 			"qty": 1,
 			"price": 2
 		},
 		{
 			"_id": 13,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "six nuggets",
 			"qty": 6,
 			"price": 3
 		},
 		{
 			"_id": 14,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "eight nuggets",
 			"qty": 8,
 			"price": 3.50
 		},
 		{
 			"_id": 15,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "ten nuggets",
 			"qty": 10,
 			"price": 4
 		},
 		{
 			"_id": 16,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "fillet burger",
 			"qty": 1,
 			"price": 4
 		},
 		{
 			"_id": 17,
-			"category_id": "chicken",
+			"category": "chicken",
 			"name": "snack boxes - 2 pieces",
 			"qty": 1,
 			"price": 6
 		},
 		{
 			"_id": 18,
-			"category_id": "fish",
+			"category": "fish",
 			"name": "cod",
 			"qty": 1,
 			"price": 3
 		},
 		{
 			"_id": 19,
-			"category_id": "fish",
+			"category": "fish",
 			"name": "haddock",
 			"qty": 1,
 			"price": 3.50
 		},
 		{
 			"_id": 20,
-			"category_id": "fish",
+			"category": "fish",
 			"name": "plaice",
 			"qty": 1,
 			"price": 4
 		},
 		{
 			"_id": 21,
-			"category_id": "fish",
+			"category": "fish",
 			"name": "box - plaice and chips",
 			"qty": 1,
 			"price": 7
