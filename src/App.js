@@ -2,22 +2,19 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  //Link
 } from 'react-router-dom'
 import ReactDOM from 'react-dom';
-//import logo from './logo.svg';
 import './App.css';
-//import Order, {Checkout} from './Order.js';
 import Contact from './Contact.js'
 
 var Order = require('./Order.js').orComp1;
 var Checkout = require('./Order.js').orComp2;
 
 var Info = React.createClass({  
+
   render: function() {
     return (
       <div className="App">
-        
       </div>
     );
   } 

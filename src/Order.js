@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
 import {items, discounts} from './data.json';
+import { connect } from 'react-redux';
 
 var basket = [];
 
 var Order = React.createClass({ 
+
+  getInitialState() {
+    return { basket: basket };
+  },
 
   render: function() {
     return (
@@ -34,7 +39,7 @@ var MenuDisplay = React.createClass({
     var orderItem = []; 
     var itemExist = false;
 
-    if(item._id > 0 && item._id < 22)
+    if(item._id > 0 && item._id < items.length+1)
     {
       orderItem = {
         name: item.name+" "+item.category,
@@ -105,7 +110,10 @@ var MenuDisplay = React.createClass({
   },
 
   onCheckout: function(){
-    console.log("Checkout");
+
+    connect(this.state.basket);
+
+    //this.setState({ basket: basket });
   },
 
   render(){
@@ -415,10 +423,20 @@ var MenuDisplay = React.createClass({
   })
 
 var Checkout = React.createClass({  
+
+  getInitialState: function() {
+           return { basket: basket };
+       },
+
+  onGetBasket: function(){
+      console.log(connect)
+  },
+
   render: function() {
     return (
       <div className="App">
-       
+      <h1>Testing Backet Carry!</h1>
+        <button className="text-right btn btn-success text-center" onClick={this.onGetBasket}>Checkout</button>
       </div>
 
     );
