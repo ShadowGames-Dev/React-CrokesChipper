@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {items, discounts} from './data.json';
-import { connect } from 'react-redux';
+import { loadState, saveState } from './localStorage';
 
 var basket = [];
 
@@ -111,9 +111,8 @@ var MenuDisplay = React.createClass({
 
   onCheckout: function(){
 
-    connect(this.state.basket);
-
-    //this.setState({ basket: basket });
+    saveState(this.state.basket);
+    window.location.assign('/checkout');
   },
 
   render(){
@@ -422,22 +421,76 @@ var MenuDisplay = React.createClass({
     }
   })
 
-var Checkout = React.createClass({  
+var Checkout = React.createClass({ 
 
   getInitialState: function() {
-           return { basket: basket };
+           return { basket: loadState() };
        },
 
   onGetBasket: function(){
-      console.log(connect)
+      //console.log(loadState());
   },
 
   render: function() {
     return (
-      <div className="App">
-      <h1>Testing Backet Carry!</h1>
-        <button className="text-right btn btn-success text-center" onClick={this.onGetBasket}>Checkout</button>
-      </div>
+      <div className="row">
+          <div className="col-xs-10 col-xs-offset-1">
+            <div className="row">
+      <div className="col-xs-12">
+                <div className="bord">
+                  <h1 className="text-center">Checkout</h1>
+
+
+                  <div className="text-left MenuItem row">
+        <div className="col-xs-12">
+        <br/>
+        <div className="row ">
+            <div className="col-xs-4">
+            <p>Item -</p>
+            </div>
+
+            <div className="col-xs-4">
+            <p>Price -</p>
+            </div>
+
+            <div className="col-xs-4">
+            <p>Quantity -</p>
+            </div>
+            </div>
+          <hr/>
+          {this.state.basket.map(function(basketValue, _id){
+            return (
+            <div key={_id}>
+            <br/>
+            <div className="row">
+            <div className="col-xs-4">
+            <p>{basketValue.name}</p>
+            </div>
+
+            <div className="col-xs-3 text-center">
+            <p>{basketValue.price}</p>
+            </div>
+
+            <div className="col-xs-3 text-center">
+            <p>{basketValue.qty}</p>
+            </div>
+
+            <div className="col-xs-2 text-center">
+            </div>
+
+            </div>
+            </div>
+            );
+          }, this)}
+
+        </div>
+        </div>
+        <button className="text-right btn btn-success text-center" onClick={this.onCheckout}>Checkout</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
     );
   } 
