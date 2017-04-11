@@ -2,8 +2,11 @@ import React from 'react';
 import './App.css';
 import {items, discounts} from './data.json';
 import { loadState, saveState } from './localStorage';
+import AlertContainer from 'react-alert';
+import StripeCheckout from 'react-stripe-checkout';
 
 var basket = [];
+var msg;
 
 var Order = React.createClass({ 
 
@@ -15,6 +18,7 @@ var Order = React.createClass({
     return (
       <div className="App">
         <br/>
+        <AlertContainer ref={(a) => msg = a} {...this.alertOptions} />
         <div className="row">
           <div className="col-xs-10 col-xs-offset-1">
             <div className="row">
@@ -32,7 +36,7 @@ var Order = React.createClass({
 var MenuDisplay = React.createClass({
 
   getInitialState: function() {
-           return { basket: basket };
+           return { basket: loadState() };
        },
 
   onItemClick: function(item, e) { 
@@ -109,10 +113,20 @@ var MenuDisplay = React.createClass({
     
   },
 
+  onClear: function(){
+    this.setState({basket: []});
+    saveState(this.state.basket);
+  },
+
   onCheckout: function(){
 
     saveState(this.state.basket);
-    window.location.assign('/checkout');
+    if(loadState().length === 0)
+    {
+      msg.show('No items added to order!', { time: 3000});
+    }else {
+      window.location.assign('/checkout');
+    }
   },
 
   render(){
@@ -122,6 +136,7 @@ var MenuDisplay = React.createClass({
     var burgers = [];
     var chicken = [];
     var fish = [];
+    var total = 0;
 
     for (var i = 0; i < items.length; i++) {
         switch(items[i].category){
@@ -191,7 +206,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -215,7 +230,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -239,7 +254,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -263,7 +278,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -287,7 +302,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -341,7 +356,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-4 text-center">
-            <p>{listValue.price}</p>
+            <p>&euro; {listValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-4 text-right">
@@ -383,6 +398,7 @@ var MenuDisplay = React.createClass({
           <hr/>
           {this.state.basket.map(function(basketValue, _id){
             let boundXClick = this.onXClick.bind(this, basketValue);
+            total += (basketValue.price*basketValue.qty);
             return (
             <div key={_id}>
             <br/>
@@ -392,7 +408,7 @@ var MenuDisplay = React.createClass({
             </div>
 
             <div className="col-xs-3 text-center">
-            <p>{basketValue.price}</p>
+            <p>&euro; {basketValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-3 text-center">
@@ -410,7 +426,14 @@ var MenuDisplay = React.createClass({
 
         </div>
         </div>
-        <button className="text-right btn btn-success text-center" onClick={this.onCheckout}>Checkout</button>
+          <hr/>
+            <div className="text-right">
+
+            <h3>Total Cost = &euro; {total.toFixed(2)} </h3><br/>
+            <button className="text-right btn btn-danger text-center" onClick={this.onClear}>Clear Order</button> &emsp;
+            <button className="text-right btn btn-success text-center" onClick={this.onCheckout}>Proceed to Checkout</button>
+
+            </div>
         </div>
         </div>
 
@@ -421,24 +444,44 @@ var MenuDisplay = React.createClass({
     }
   })
 
-var Checkout = React.createClass({ 
+var Checkout = React.createClass({
+
+  onToken: function(token) {
+    this.setState({basket: []});
+    saveState(this.state.basket);
+    alert("Thank you, your order has been taken!");
+    window.location.assign('/');
+  },
 
   getInitialState: function() {
            return { basket: loadState() };
        },
 
-  onGetBasket: function(){
-      //console.log(loadState());
+  onPay: function(){
+      if(loadState().length === 0)
+    {
+      msg.show('No items in order, please go back to order page!', { time: 3000});
+    }else {
+
+    }
+  },
+
+  onBack: function(){
+      window.location.assign('/');
   },
 
   render: function() {
+
+    var total = 0;
+
     return (
       <div className="row">
+      <AlertContainer ref={(a) => msg = a} {...this.alertOptions} />
           <div className="col-xs-10 col-xs-offset-1">
             <div className="row">
       <div className="col-xs-12">
                 <div className="bord">
-                  <h1 className="text-center">Checkout</h1>
+                  <h1 className="text-center">Confirm Order</h1>
 
 
                   <div className="text-left MenuItem row">
@@ -459,6 +502,7 @@ var Checkout = React.createClass({
             </div>
           <hr/>
           {this.state.basket.map(function(basketValue, _id){
+            total += (basketValue.price*basketValue.qty);
             return (
             <div key={_id}>
             <br/>
@@ -468,7 +512,7 @@ var Checkout = React.createClass({
             </div>
 
             <div className="col-xs-3 text-center">
-            <p>{basketValue.price}</p>
+            <p>&euro; {basketValue.price.toFixed(2)}</p>
             </div>
 
             <div className="col-xs-3 text-center">
@@ -483,9 +527,42 @@ var Checkout = React.createClass({
             );
           }, this)}
 
+          <div className="row">
+          <hr/>
+            <div className="col-xs-12 text-right">
+
+            <p>Total Cost = &euro; {total.toFixed(2)} </p>
+            <button className="text-right btn btn-danger text-center" onClick={this.onBack}>Back and Edit</button><br/><br/>
+
+            <StripeCheckout
+              name="Shadow Games and Development"
+              description="Crokes Chipper"
+              image="https://shadowgames-dev.com/img/logo/main_black.png"
+              ComponentClass="div"
+              panelLabel="Pay Order: "
+              amount={total*100}
+              currency="EUR"
+              stripeKey="pk_test_UCbXbCNsbdNCk4WfTNuJ0qje"
+              locale="auto"
+              email="info@shadowgames-dev.com"
+              shippingAddress
+              billingAddress={true}
+              zipCode={false}
+              allowRememberMe
+              token={this.onToken}
+              reconfigureOnUpdate={false}
+              >
+                <button className="btn btn-primary">
+                    Pay with Card
+                </button>
+              </StripeCheckout>
+            
+            </div>
+            </div>
+
         </div>
         </div>
-        <button className="text-right btn btn-success text-center" onClick={this.onCheckout}>Checkout</button>
+        
         </div>
         </div>
         </div>
