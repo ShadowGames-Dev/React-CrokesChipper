@@ -5,6 +5,11 @@ import { loadState, saveState } from './localStorage';
 import AlertContainer from 'react-alert';
 import StripeCheckout from 'react-stripe-checkout';
 
+var chips = [];
+var burgers = [];
+var sausages = [];
+var chicken = [];
+var fish = [];
 var basket = [];
 var msg;
 
@@ -36,7 +41,33 @@ var Order = React.createClass({
 var MenuDisplay = React.createClass({
 
   getInitialState: function() {
-           return { basket: loadState() };
+          for (var i = 0; i < items.length; i++) {
+        switch(items[i].category){
+
+          case "chips":{
+            chips.push(items[i]);
+          };
+          break;
+          case "sausages":{
+            sausages.push(items[i]);
+          };
+          break;
+          case "burgers":{
+            burgers.push(items[i]);
+          };
+          break;
+          case "chicken":{
+            chicken.push(items[i]);
+          };
+          break;
+          case "fish":{
+            fish.push(items[i]);
+          };
+          break;
+          default:{};
+          break;
+        }
+    } return {chips: chips, sausages: sausages, burgers: burgers, chicken: chicken, fish: fish, basket: loadState()};
        },
 
   onItemClick: function(item, e) { 
@@ -84,6 +115,7 @@ var MenuDisplay = React.createClass({
     
     this.setState({ basket: tempBasket });
     this.forceUpdate();
+    msg.show(orderItem.name + ' added to order!', { time: 1500});
 
   },
 
@@ -106,7 +138,7 @@ var MenuDisplay = React.createClass({
     }
 
     this.setState({ basket: tempBasket });
-    this.forceUpdate();
+    msg.error(item.name + ' removed from order!', { time: 1500});
 
       }
     }
@@ -129,43 +161,71 @@ var MenuDisplay = React.createClass({
     }
   },
 
-  render(){
+  onSearch: function(event){
+    var test
 
-    var chips = [];
-    var sausages = [];
-    var burgers = [];
-    var chicken = [];
-    var fish = [];
-    var total = 0;
+    if(event === ""){
+      test = event;
+    }else{
+      test = event.target.value;
+    }
+
+    chips = [];
+    burgers = [];
+    sausages = [];
+    chicken = [];
+    fish = [];
+    basket = [];
 
     for (var i = 0; i < items.length; i++) {
         switch(items[i].category){
 
           case "chips":{
+            if(items[i].name.includes(test) || items[i].category.includes(test)){
             chips.push(items[i]);
+          }
           };
           break;
           case "sausages":{
+            if(items[i].name.includes(test) || items[i].category.includes(test)){
             sausages.push(items[i]);
+          }
           };
           break;
           case "burgers":{
+            if(items[i].name.includes(test) || items[i].category.includes(test)){
             burgers.push(items[i]);
+          }
           };
           break;
           case "chicken":{
+            if(items[i].name.includes(test) || items[i].category.includes(test)){
             chicken.push(items[i]);
+          }
           };
           break;
           case "fish":{
+            if(items[i].name.includes(test) || items[i].category.includes(test)){
             fish.push(items[i]);
+          }
           };
           break;
           default:{};
           break;
         }
-    }
+    } 
+      this.setState({chips: chips, sausages: sausages, burgers: burgers, chicken: chicken, fish: fish});
 
+  },
+
+  clearSearch: function(){
+      this.refs.searchField.value="";
+      this.onSearch("");
+  },
+
+  render(){
+
+    var total = 0;
 
     return(
       <div>
@@ -192,10 +252,15 @@ var MenuDisplay = React.createClass({
             
             </div>
             </div>
+            <br/>
+            <input ref="searchField" type="text" placeholder="Search" onChange={this.onSearch} />
+            &nbsp;
+            <button className="btn btn-danger" onClick={this.clearSearch}>X</button>
+            <hr/>
           <h1>Chips - </h1>
           <hr/>
 
-          {chips.map(function(listValue, _id){
+          {this.state.chips.map(function(listValue, _id){
             let boundItemClick = this.onItemClick.bind(this, listValue);
             return (
             <div key={_id}>
@@ -219,7 +284,7 @@ var MenuDisplay = React.createClass({
 
           <h1>Sausages - </h1>
         <hr/>
-          {sausages.map(function(listValue, _id){
+          {this.state.sausages.map(function(listValue, _id){
             let boundItemClick = this.onItemClick.bind(this, listValue);
             return (
             <div key={_id}>
@@ -243,7 +308,7 @@ var MenuDisplay = React.createClass({
 
           <h1>Burgers - </h1>
         <hr/>
-          {burgers.map(function(listValue, _id){
+          {this.state.burgers.map(function(listValue, _id){
             let boundItemClick = this.onItemClick.bind(this, listValue);
             return (
             <div key={_id}>
@@ -267,7 +332,7 @@ var MenuDisplay = React.createClass({
 
           <h1>Chicken - </h1>
         <hr/>
-          {chicken.map(function(listValue, _id){
+          {this.state.chicken.map(function(listValue, _id){
             let boundItemClick = this.onItemClick.bind(this, listValue);
             return (
             <div key={_id}>
@@ -291,7 +356,7 @@ var MenuDisplay = React.createClass({
 
           <h1>Fish - </h1>
         <hr/>
-          {fish.map(function(listValue, _id){
+          {this.state.fish.map(function(listValue, _id){
             let boundItemClick = this.onItemClick.bind(this, listValue);
             return (
             <div key={_id}>
@@ -565,6 +630,11 @@ var Checkout = React.createClass({
         
         </div>
         </div>
+        </div>
+        </div>
+        <div className="row">
+        <div className="col-xs-12 text-center">
+        <h4><b><i>For the purpose of testing, card number is 4242 4242 4242 4242, expiration date 10/17, Security No. 000</i></b></h4>
         </div>
         </div>
         </div>
