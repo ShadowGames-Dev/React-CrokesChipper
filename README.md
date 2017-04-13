@@ -107,7 +107,7 @@ The use of the above mentioned extra features were learned independintly. The im
 [image1]: ./1.JPG
 [image2]: ./2.JPG
 [image3]: ./3.JPG
-[image4]: ./design.JPG
+[image4]: ./design.png
 [image5]: ./contact.JPG
 [image6]: ./info.JPG
 [image7]: ./nav.JPG
